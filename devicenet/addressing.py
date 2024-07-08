@@ -2,7 +2,7 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from ..errors import DevNetGroupError
+from .errors import DevNetGroupError
 
 
 def can_addr(msg_group, msg_id, mac):

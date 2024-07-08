@@ -11,11 +11,9 @@ from collections import Iterable
 
 # Project imports
 from .addressing import *
-from ..errors import *
-from ..can.frame import CanFrameBasic
-from ..can.interface import CanFrameABC
-from ..definitions import *
-from ..convert import *
+from .errors import *
+from .definitions import *
+from .convert import *
 
 import logging
 
@@ -52,6 +50,64 @@ import logging
 #
 #     def clear(self):
 #         raise NotImplementedError
+
+
+class CanFrameAbc(with_metaclass(ABCMeta)):
+
+    @abstractmethod
+    def __init__(self, **kwargs):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def extended(self):
+        raise NotImplementedError
+
+    @extended.setter
+    def extended(self, value):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def can_id(self):
+        raise NotImplementedError
+
+    @can_id.setter
+    def can_id(self, value):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def length(self):
+        raise NotImplementedError
+
+    @length.setter
+    def length(self, value):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def data(self):
+        raise NotImplementedError
+
+    @data.setter
+    def data(self, value):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def report(self):
+        raise NotImplementedError
+
+    @property
+    @abstractmethod
+    def rtr(self):
+        raise NotImplementedError
+
+    @rtr.setter
+    def rtr(self, value):
+        raise NotImplementedError
+
 
 ###################################################################################################
 #                                   FRAGMENTATION PROTOCOL
@@ -733,7 +789,7 @@ class DeviceNetPacket(object):
         """ Parse the CAN frame and save the data into the context of the current instance
 
         Args:
-            frame (CanFrameABC) : A CAN frame object
+            frame (CanFrameAbc) : A CAN frame object
 
         Returns:
             self (DeviceNetPacket) : The current packet instance
@@ -756,7 +812,7 @@ class DeviceNetPacket(object):
 
     ###############################################################################################
 
-    def to_frame(self, frame_class=CanFrameBasic):
+    def to_frame(self, frame_class=CanFrameAbc):
         """ Generate a CAN frame from the current instance state
 
         Returns:
@@ -1001,7 +1057,6 @@ class ExplicitPacket(DeviceNetPacket):
         data (iterable)     : The service data
 
     Example:
-        >>> from Components.devicenet.network.packet import ExplicitPacket
         >>> test_packet = ExplicitPacket(group_id=2, message_id=6, src_mac=0, dst_mac=1, data=(1, 2, 3))
         >>> frame = test_packet.to_frame()
         >>> parsed_packet = ExplicitPacket().from_frame(frame)
@@ -1238,7 +1293,6 @@ class ExplicitServicePacket(FragHeaderMixin, ExplicitPacket):
         body_format (int)       : The message body format
 
     Example:
-        >>> from Components.devicenet.network.packet import ExplicitServicePacket
         >>> test_packet = ExplicitServicePacket(group_id=2, message_id=6, src_mac=0, dst_mac=1, body_format=0)
         >>> frame = test_packet.to_frame()
         >>> parsed_packet = ExplicitServicePacket().from_frame(frame)
@@ -1752,7 +1806,6 @@ class ExplicitFragPacket(FragHeaderMixin, ExplicitPacket):
         data (iterable)     : The service data
 
     Example:
-        >>> from Components.devicenet.network.packet import ExplicitFragPacket
         >>> test_packet = ExplicitFragPacket(
         ...     group_id=2,
         ...     message_id=3,
@@ -2229,7 +2282,7 @@ class IoFragPacket(FragHeaderMixin, IoPacket):
         """ Parse the CAN frame and save the data into the context of the current instance
 
         Args:
-            frame (CanFrameABC) : A CAN frame object
+            frame (CanFrameAbc) : A CAN frame object
 
         Returns:
             self (DeviceNetPacket) : The current packet instance

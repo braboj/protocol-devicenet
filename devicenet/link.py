@@ -3,7 +3,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 # Custom libraries
-from .packet import *
+from .packets import *
 from .addressing import can_addr
 
 # System libraries
@@ -522,8 +522,8 @@ def poll_write(interface, master_addr, slave_addr, consumed_size, data):
 ##############################################################################################
 
 def poll_read(interface, master_addr, slave_addr, produced_size, timeout=1):
-    """ Receive a poll message 
-    
+    """ Receive a poll message
+
     Args:
         interface       : CAN interface
         master_addr     : Master address
@@ -571,8 +571,8 @@ def poll_read(interface, master_addr, slave_addr, produced_size, timeout=1):
 ##############################################################################################
 
 def cos_write(interface, master_addr, slave_addr, consumed_size, produced_size, data, ack_sup, timeout=1):
-    """ Send a COS/CYCLIC message 
-    
+    """ Send a COS/CYCLIC message
+
     Args:
         interface       : CAN interface
         master_addr     : Master address
@@ -652,8 +652,8 @@ def cos_write(interface, master_addr, slave_addr, consumed_size, produced_size, 
 ##############################################################################################
 
 def cos_read(interface, master_addr, slave_addr, consumed_size, produced_size, ack_data, ack_sup, timeout=1):
-    """ Receive a COS/CYCLIC message 
-    
+    """ Receive a COS/CYCLIC message
+
     Args:
         interface       : CAN interface
         master_addr     : Master address

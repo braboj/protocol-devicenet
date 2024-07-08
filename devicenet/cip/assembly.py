@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 from .base import CipObject, Attribute
 from ..errors import CipServiceError
 from ..convert import bytes_to_integer
-from ..network.message import get_member, set_member
+from ..link import get_member, set_member
 
 # System imports
 import logging

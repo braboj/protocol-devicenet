@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 # Framework imports
 from .base import CipObject, Attribute
-from ..network.message import *
+from ..link import *
 from ..definitions import *
 from ..convert import integer_to_bytes, bytes_to_integer
 from ..errors import CipServiceError, CipNoResponseError

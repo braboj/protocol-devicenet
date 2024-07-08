@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 # Framework imports
 from ..errors import CipServiceError
-from ..network.message import reset, get_attr_single, set_attr_single, get_attr_all
+from ..link import reset, get_attr_single, set_attr_single, get_attr_all
 from ..convert import bytes_to_integer, integer_to_bytes
 
 # System imports
@@ -386,7 +386,7 @@ class CipObject(object):
                     break
 
         # Attribute ID is string (attribute name)
-        elif isinstance(attrib_id, unicode) or isinstance(attrib_id, str):
+        elif isinstance(attrib_id, bytes) or isinstance(attrib_id, str):
             for element in self.attributes:
                 if attrib_id == element.name:
                     result = element.size

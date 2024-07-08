@@ -26,7 +26,7 @@ import logging
 #   - Improve comments and documentation
 
 
-class DevNetNode(object):
+class DevNetCipNode(object):
     """ Class representing a standard CIP node with some pre-defined CIP objects.
 
     This class represent a standard communication adapter profile. According to the CIP
